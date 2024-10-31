@@ -100,6 +100,7 @@ class OptimizationParams(ParamGroup):
         self.random_background = False
         # Added Optimization Parameters
         self.fourier_loss = 1.0
+        self.fourier_grad_threshold = 0.1
         self.fourier_pruning = False
         self.max_depth_level = 7
         self.clip_value = 0.01

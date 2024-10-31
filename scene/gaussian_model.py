@@ -473,7 +473,7 @@ class GaussianModel:
 
         self.densification_postfix(new_xyz, new_features_dc, new_features_rest, new_opacities, new_scaling, new_rotation, new_tmp_radii)
 
-    def densify_and_prune(self, max_grad, min_opacity, extent, max_screen_size, radii):
+    def densify_and_prune(self, max_grad,max_fourier_grad, min_opacity, extent, max_screen_size, radii):
         grads = self.xyz_gradient_accum / self.denom
         grads[grads.isnan()] = 0.0
 
@@ -502,7 +502,7 @@ class GaussianModel:
         # print('quantile 0.99',torch.quantile(padded_fourier_grad, 0.99, interpolation='linear'))
         # print('-------------')
 
-        prune_fourier_mask = padded_fourier_grad > 0.1 #TODO: Tranform this into an input 
+        prune_fourier_mask = padded_fourier_grad > max_fourier_grad #TODO: Tranform this into an input 
         prune_mask = torch.logical_or(prune_mask,prune_fourier_mask)
 
         self.prune_points(prune_mask)

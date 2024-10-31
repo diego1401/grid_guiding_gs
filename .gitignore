@@ -1,4 +1,7 @@
 *.pyc
+*.out
+*.sh
+*.yml
 .vscode
 output
 build
